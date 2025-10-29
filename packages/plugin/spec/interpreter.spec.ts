@@ -16,6 +16,7 @@ describe('interpreter', function () {
                     forceExcludeAllOptions: false,
                     keepEnumPrefix: false,
                     useProtoFieldName: false,
+                    exportClientEnabled: true,
                 },
             )
             const messageType = interpreter.getMessageType('spec.LongsMessage');
