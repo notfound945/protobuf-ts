@@ -67,6 +67,7 @@ export class Interpreter {
             forceExcludeAllOptions: boolean,
             keepEnumPrefix: boolean,
             useProtoFieldName: boolean,
+            // exportClientEnabled: boolean,
         },
     ) {
     }
@@ -289,9 +290,26 @@ export class Interpreter {
     private buildServiceType(typeName: string, methods: DescMethod[], excludeOptions: readonly string[]): rpc.ServiceType {
         let desc = this.registry.getService(typeName);
         assert(desc);
+        
+        // Filter methods based on blocker.exportclient option if enabled
+        let filteredMethods = methods;
+        // if (this.options.exportClientEnabled) {
+        //     filteredMethods = methods.filter(method => {
+        //         const methodOptions = this.readOptions(method, excludeOptions);
+        //         if (methodOptions) {
+        //             const exportClientValue = methodOptions['blocker.exportclient'];
+        //             // If the option is set to 0, filter out this method
+        //             if (exportClientValue === 0 || exportClientValue === '0') {
+        //                 return false;
+        //             }
+        //         }
+        //         return true;
+        //     });
+        // }
+        
         return new rpc.ServiceType(
             typeName,
-            methods.map(m => this.buildMethodInfo(m, excludeOptions)),
+            filteredMethods.map(m => this.buildMethodInfo(m, excludeOptions)),
             this.readOptions(desc, excludeOptions)
         );
     }

@@ -225,6 +225,12 @@ const parseParameter = createOptionParser({
         description: "Forces optimize_for = SPEED for all proto files, ignore file options.",
         excludes: ['optimize_code_size', 'force_optimize_code_size']
     },
+
+    // method filtering
+    exportclient: {
+        kind: "flag",
+        description: "When enabled, RPC methods with option (blocker.exportclient) = 0 will not be generated.",
+    },
 });
 
 
@@ -254,6 +260,7 @@ export interface Options {
     readonly transpileModule: ts.ModuleKind,
     readonly forceDisableServices: boolean;
     readonly addPbSuffix: boolean;
+    readonly exportClientEnabled: boolean;
     getOptimizeMode(file: DescFile): FileOptions_OptimizeMode;
     getClientStyles(descriptor: DescService): ClientStyle[];
     getServerStyles(descriptor: DescService): ServerStyle[];
@@ -287,6 +294,7 @@ export function parseOptions(
         transpileModule: ts.ModuleKind.ES2015,
         forceDisableServices: false,
         addPbSuffix: false,
+        exportClientEnabled: false,
         getOptimizeMode(file: DescFile): FileOptions_OptimizeMode {
             if (this.forcedOptimizeMode !== undefined) {
                 return this.forcedOptimizeMode;
@@ -428,6 +436,9 @@ export function parseOptions(
     }
     if (params.output_legacy_commonjs) {
         o.transpileModule = ts.ModuleKind.CommonJS;
+    }
+    if (params.exportclient) {
+        o.exportClientEnabled = true;
     }
     return o;
 }

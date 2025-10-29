@@ -1,0 +1,18 @@
+syntax = "proto3";
+import "blocker.proto"; 
+
+service TestService {
+    rpc Method1 (Req) returns (Resp);
+    
+    rpc Method2 (Req) returns (Resp) {
+        option (blocker.exportclient) = 0;
+    };
+}
+
+message Req {
+    string name = 1;
+}
+
+message Resp {
+    string message = 1;
+}
