@@ -124,9 +124,10 @@ class Resp$Type extends MessageType<Resp> {
  */
 export const Resp = new Resp$Type();
 /**
- * @generated ServiceType for protobuf service TestService
+ * @generated ServiceType for protobuf service ServiceWithExportClient
  */
-export const TestService = new ServiceType("TestService", [
+export const ServiceWithExportClient = new ServiceType("ServiceWithExportClient", [
     { name: "Method1", options: {}, I: Req, O: Resp },
-    { name: "Method2", options: { "blocker.exportclient": 0 }, I: Req, O: Resp }
+    { name: "MethodWithExportClient0", options: { "blocker.exportclient": 0 }, I: Req, O: Resp },
+    { name: "MethodWithExportClient1", options: { "blocker.exportclient": 1 }, I: Req, O: Resp }
 ]);
