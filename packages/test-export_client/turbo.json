@@ -19,7 +19,8 @@
     "sync-default-specs": {
       "dependsOn": ["^build"],
       "inputs": ["../test-default/spec/**/*.ts"],
-      "outputs": ["spec/**/*.ts"]
+      "outputs": ["spec/**/*.ts"],
+      "cache": false
     },
     "conformance": {
       "dependsOn": ["generate", "^build"],
