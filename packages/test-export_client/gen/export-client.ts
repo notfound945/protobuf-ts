@@ -29,24 +29,6 @@ export interface Resp {
      */
     message: string;
 }
-/**
- * @generated from protobuf message IgnoredClientReq
- */
-export interface IgnoredClientReq {
-    /**
-     * @generated from protobuf field: string name = 1
-     */
-    name: string;
-}
-/**
- * @generated from protobuf message IgnoredClientResp
- */
-export interface IgnoredClientResp {
-    /**
-     * @generated from protobuf field: string message = 1
-     */
-    message: string;
-}
 // @generated message type with reflection information, may provide speed optimized methods
 class Req$Type extends MessageType<Req> {
     constructor() {
@@ -141,104 +123,10 @@ class Resp$Type extends MessageType<Resp> {
  * @generated MessageType for protobuf message Resp
  */
 export const Resp = new Resp$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class IgnoredClientReq$Type extends MessageType<IgnoredClientReq> {
-    constructor() {
-        super("IgnoredClientReq", [
-            { no: 1, name: "name", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<IgnoredClientReq>): IgnoredClientReq {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.name = "";
-        if (value !== undefined)
-            reflectionMergePartial<IgnoredClientReq>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IgnoredClientReq): IgnoredClientReq {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string name */ 1:
-                    message.name = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: IgnoredClientReq, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string name = 1; */
-        if (message.name !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.name);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message IgnoredClientReq
- */
-export const IgnoredClientReq = new IgnoredClientReq$Type();
-// @generated message type with reflection information, may provide speed optimized methods
-class IgnoredClientResp$Type extends MessageType<IgnoredClientResp> {
-    constructor() {
-        super("IgnoredClientResp", [
-            { no: 1, name: "message", kind: "scalar", T: 9 /*ScalarType.STRING*/ }
-        ]);
-    }
-    create(value?: PartialMessage<IgnoredClientResp>): IgnoredClientResp {
-        const message = globalThis.Object.create((this.messagePrototype!));
-        message.message = "";
-        if (value !== undefined)
-            reflectionMergePartial<IgnoredClientResp>(this, message, value);
-        return message;
-    }
-    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: IgnoredClientResp): IgnoredClientResp {
-        let message = target ?? this.create(), end = reader.pos + length;
-        while (reader.pos < end) {
-            let [fieldNo, wireType] = reader.tag();
-            switch (fieldNo) {
-                case /* string message */ 1:
-                    message.message = reader.string();
-                    break;
-                default:
-                    let u = options.readUnknownField;
-                    if (u === "throw")
-                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
-                    let d = reader.skip(wireType);
-                    if (u !== false)
-                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
-            }
-        }
-        return message;
-    }
-    internalBinaryWrite(message: IgnoredClientResp, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
-        /* string message = 1; */
-        if (message.message !== "")
-            writer.tag(1, WireType.LengthDelimited).string(message.message);
-        let u = options.writeUnknownFields;
-        if (u !== false)
-            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
-        return writer;
-    }
-}
-/**
- * @generated MessageType for protobuf message IgnoredClientResp
- */
-export const IgnoredClientResp = new IgnoredClientResp$Type();
 /**
  * @generated ServiceType for protobuf service ServiceWithExportClient
  */
 export const ServiceWithExportClient = new ServiceType("ServiceWithExportClient", [
     { name: "EmptyOptionMethod", options: {}, I: Req, O: Resp },
-    { name: "MethodWithExportClient1", options: { "blocker.exportclient": 1 }, I: IgnoredClientReq, O: IgnoredClientResp }
+    { name: "MethodWithExportClient1", options: { "blocker.exportclient": 1 }, I: Req, O: Resp }
 ]);

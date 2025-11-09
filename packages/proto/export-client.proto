@@ -2,14 +2,24 @@ syntax = "proto3";
 import "google/blocker/blocker.proto"; 
 
 service ServiceWithExportClient {
+    // exportclient is not set, so the client code will be generated
     rpc EmptyOptionMethod (Req) returns (Resp);
     
-    rpc MethodWithExportClient0 (Req) returns (Resp) {
+    rpc MethodWithExportClient0 (IgnoredClientReq) returns (IgnoredClientResp) {
+        // exportclient is set to 0, so the client code will not be generated
         option (blocker.exportclient) = 0;
     };
 
-    rpc MethodWithExportClient1 (IgnoredClientReq) returns (IgnoredClientResp) {
+    rpc MethodWithExportClient1 (Req) returns (Resp) {
+        // exportclient is set to 1, so the client code will be generated
         option (blocker.exportclient) = 1;
+    };
+
+    rpc MethodUseReferencedMessage (Req) returns (Resp) {
+        // exportclient is set to 0, so the client code will not be generated
+        // but the Req & Resp messages will be generated
+        // because they are referenced by other method
+        option (blocker.exportclient) = 0;
     };
 }
 

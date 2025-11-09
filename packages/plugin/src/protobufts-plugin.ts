@@ -48,15 +48,6 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
             imports = new TypeScriptImports(symbols, registry),
             comments = new CommentGenerator(),
             interpreter = new Interpreter(registry, options),
-            // interpreter = new Interpreter(registry, {
-            //     normalLongType: options.normalLongType,
-            //     oneofKindDiscriminator: options.oneofKindDiscriminator,
-            //     synthesizeEnumZeroValue: options.synthesizeEnumZeroValue,
-            //     forceExcludeAllOptions: options.forceExcludeAllOptions,
-            //     keepEnumPrefix: options.keepEnumPrefix,
-            //     useProtoFieldName: options.useProtoFieldName,
-            //     exportClientEnabled: options.exportClientEnabled,
-            // }),
             genMessageInterface = new MessageInterfaceGenerator(symbols, imports, comments, interpreter, options),
             genEnum = new EnumGenerator(symbols, imports, comments, interpreter),
             genMessageType = new MessageTypeGenerator(registry, imports, comments, interpreter, options),
@@ -96,6 +87,61 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
                 //outClientRx = fileTable.create(descFile, 'rx-client'),
                 outClientGrpc = fileTable.create(descFile, 'grpc1-client');
 
+            // When exportClient filtering is enabled, compute which messages should be skipped:
+            // - Messages used only as I/O of filtered methods (exportclient=0)
+            // - But DO NOT skip if:
+            //   a) The message is used by any kept method as I/O
+            //   b) The message is referenced by any field of any message
+            const skipMessages = new Set<string>();
+            if ((options as any).exportClientEnabled) {
+                const keptIOAll = new Set<string>();
+                const excludedIOAll = new Set<string>();
+                const fieldReferencedAll = new Set<string>();
+
+                // Collect field-referenced message type names across ALL files
+                for (const f of registry.files) {
+                    for (const t of nestedTypes(f)) {
+                        if (t.kind === "message") {
+                            for (const field of t.fields) {
+                                const refType = field.message?.typeName;
+                                if (refType) {
+                                    fieldReferencedAll.add(refType);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Collect kept/excluded method I/O message types across ALL services
+                for (const f of registry.files) {
+                    for (const t of nestedTypes(f)) {
+                        if (t.kind === "service") {
+                            const keptMethodInfos = interpreter.getServiceType(t).methods;
+                            const keptNames = new Set(keptMethodInfos.map(mi => mi.name));
+                            for (const m of t.methods) {
+                                const inputType = m.input.typeName;
+                                const outputType = m.output.typeName;
+                                if (keptNames.has(m.name)) {
+                                    keptIOAll.add(inputType);
+                                    keptIOAll.add(outputType);
+                                } else {
+                                    excludedIOAll.add(inputType);
+                                    excludedIOAll.add(outputType);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Compute final skip set: excluded - (kept ∪ fieldReferenced)
+                const keepSet = new Set<string>([...keptIOAll, ...fieldReferencedAll]);
+                for (const typeName of excludedIOAll) {
+                    if (!keepSet.has(typeName)) {
+                        skipMessages.add(typeName);
+                    }
+                }
+            }
+
             // in first pass over types, register all symbols, regardless whether they are going to be used
             for (const desc of nestedTypes(descFile)) {
                 switch (desc.kind) {
@@ -119,7 +165,9 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
             for (const desc of nestedTypes(descFile)) {
                 switch (desc.kind) {
                     case "message":
-                        genMessageInterface.generateMessageInterface(outMain, desc)
+                        if (!skipMessages.has(desc.typeName)) {
+                            genMessageInterface.generateMessageInterface(outMain, desc)
+                        }
                         break;
                     case "enum":
                         genEnum.generateEnum(outMain, desc);
@@ -131,7 +179,9 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
             for (const desc of nestedTypes(descFile)) {
                 switch (desc.kind) {
                     case "message":
-                        genMessageType.generateMessageType(outMain, desc, options.getOptimizeMode(descFile));
+                        if (!skipMessages.has(desc.typeName)) {
+                            genMessageType.generateMessageType(outMain, desc, options.getOptimizeMode(descFile));
+                        }
                         break;
                     case "service":
                         if (options.forceDisableServices) {

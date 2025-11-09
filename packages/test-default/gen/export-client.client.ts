@@ -16,17 +16,23 @@ import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
  */
 export interface IServiceWithExportClientClient {
     /**
+     * exportclient is not set, so the client code will be generated
+     *
      * @generated from protobuf rpc: EmptyOptionMethod
      */
     emptyOptionMethod(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
     /**
      * @generated from protobuf rpc: MethodWithExportClient0
      */
-    methodWithExportClient0(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
+    methodWithExportClient0(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp>;
     /**
      * @generated from protobuf rpc: MethodWithExportClient1
      */
-    methodWithExportClient1(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp>;
+    methodWithExportClient1(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
+    /**
+     * @generated from protobuf rpc: MethodUseReferencedMessage
+     */
+    methodUseReferencedMessage(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
 }
 /**
  * @generated from protobuf service ServiceWithExportClient
@@ -38,6 +44,8 @@ export class ServiceWithExportClientClient implements IServiceWithExportClientCl
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
+     * exportclient is not set, so the client code will be generated
+     *
      * @generated from protobuf rpc: EmptyOptionMethod
      */
     emptyOptionMethod(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
@@ -47,15 +55,22 @@ export class ServiceWithExportClientClient implements IServiceWithExportClientCl
     /**
      * @generated from protobuf rpc: MethodWithExportClient0
      */
-    methodWithExportClient0(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
+    methodWithExportClient0(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp> {
         const method = this.methods[1], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
+        return stackIntercept<IgnoredClientReq, IgnoredClientResp>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: MethodWithExportClient1
      */
-    methodWithExportClient1(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp> {
+    methodWithExportClient1(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
         const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<IgnoredClientReq, IgnoredClientResp>("unary", this._transport, method, opt, input);
+        return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: MethodUseReferencedMessage
+     */
+    methodUseReferencedMessage(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
     }
 }
