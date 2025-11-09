@@ -2,7 +2,7 @@ syntax = "proto3";
 import "google/blocker/blocker.proto"; 
 
 service ServiceWithExportClient {
-    rpc Method1 (Req) returns (Resp);
+    rpc EmptyOptionMethod (Req) returns (Resp);
     
     rpc MethodWithExportClient0 (Req) returns (Resp) {
         option (blocker.exportclient) = 0;
