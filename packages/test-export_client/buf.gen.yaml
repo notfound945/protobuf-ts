@@ -11,4 +11,4 @@ plugins:
   - local: protoc-gen-ts
     out: gen
     opt:
-      - force_optimize_code_size
+      - export_client

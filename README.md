@@ -56,9 +56,15 @@ official [language guide](https://developers.google.com/protocol-buffers/docs/ov
   > generates msg-readme.ts  
   > if your protoc version asks for it, add the flag "--experimental_allow_proto3_optional"
 
-- test the function of exportclient with `npx protoc --ts_out=exportclient:. --plugin=protoc-gen-ts=./packages/plugin/bin/protoc-gen-ts \
-  --proto_path ./packages/proto ./packages/proto/exportclient.proto
-`
+
+- test the function of exportclient with `npx protoc --ts_out=export_client:. --plugin=protoc-gen-ts=./packages/plugin/bin/protoc-gen-ts \
+  --proto_path ./packages/proto ./packages/proto/exportclient.proto`
+
+test the export_client option:
+
+```
+npx turbo run test --filter=@protobuf-ts/test-export_client
+```
 
 
 ### Features

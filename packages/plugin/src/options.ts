@@ -227,7 +227,7 @@ const parseParameter = createOptionParser({
     },
 
     // method filtering
-    exportclient: {
+    export_client: {
         kind: "flag",
         description: "When enabled, RPC methods with option (blocker.exportclient) = 0 will not be generated.",
     },
