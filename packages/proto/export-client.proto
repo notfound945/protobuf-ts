@@ -8,7 +8,7 @@ service ServiceWithExportClient {
         option (blocker.exportclient) = 0;
     };
 
-    rpc MethodWithExportClient1 (Req) returns (Resp) {
+    rpc MethodWithExportClient1 (IgnoredClientReq) returns (IgnoredClientResp) {
         option (blocker.exportclient) = 1;
     };
 }
@@ -18,5 +18,13 @@ message Req {
 }
 
 message Resp {
+    string message = 1;
+}
+
+message IgnoredClientReq {
+    string name = 1;
+}
+
+message IgnoredClientResp {
     string message = 1;
 }

@@ -4,6 +4,8 @@
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
 import { ServiceWithExportClient } from "./export-client";
+import type { IgnoredClientResp } from "./export-client";
+import type { IgnoredClientReq } from "./export-client";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
 import type { Resp } from "./export-client";
 import type { Req } from "./export-client";
@@ -18,13 +20,9 @@ export interface IServiceWithExportClientClient {
      */
     emptyOptionMethod(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
     /**
-     * @generated from protobuf rpc: MethodWithExportClient0
-     */
-    methodWithExportClient0(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
-    /**
      * @generated from protobuf rpc: MethodWithExportClient1
      */
-    methodWithExportClient1(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
+    methodWithExportClient1(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp>;
 }
 /**
  * @generated from protobuf service ServiceWithExportClient
@@ -43,17 +41,10 @@ export class ServiceWithExportClientClient implements IServiceWithExportClientCl
         return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
     }
     /**
-     * @generated from protobuf rpc: MethodWithExportClient0
-     */
-    methodWithExportClient0(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
-    }
-    /**
      * @generated from protobuf rpc: MethodWithExportClient1
      */
-    methodWithExportClient1(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
-        return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
+    methodWithExportClient1(input: IgnoredClientReq, options?: RpcOptions): UnaryCall<IgnoredClientReq, IgnoredClientResp> {
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        return stackIntercept<IgnoredClientReq, IgnoredClientResp>("unary", this._transport, method, opt, input);
     }
 }

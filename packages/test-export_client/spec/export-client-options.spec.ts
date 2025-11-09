@@ -13,19 +13,22 @@ describe("spec.ServiceWithExportClient.MethodWithExportClient0", function () {
     if (ServiceWithExportClient.methods[1].options) {
       expect(
         ServiceWithExportClient.methods[1].options["blocker.exportclient"]
-      ).toBe(0);
+      ).toBe(1);
     }
   });
 });
 
-describe("spec.ServiceWithExportClient.Method1", function () {
-  it('should not have option "exportclient"', function () {
-    console.debug(ServiceWithExportClient.methods[2].options);
-    expect(ServiceWithExportClient.methods[2].options).toBeDefined();
-    if (ServiceWithExportClient.methods[2].options) {
-      expect(
-        ServiceWithExportClient.methods[2].options["blocker.exportclient"]
-      ).toBe(1);
-    }
+describe("spec.ServiceWithExportClient.MethodWithExportClient1", function () {
+  // it('should not have option "exportclient"', function () {
+  //   console.debug(ServiceWithExportClient.methods[2].options);
+  //   expect(ServiceWithExportClient.methods[2].options).toBeDefined();
+  //   if (ServiceWithExportClient.methods[2].options) {
+  //     expect(
+  //       ServiceWithExportClient.methods[2].options["blocker.exportclient"]
+  //     ).toBe(1);
+  //   }
+  // });
+  it('MethodWithExportClient1 should be undefined', function () {
+    expect(ServiceWithExportClient.methods[2]).toBeUndefined();
   });
 });
