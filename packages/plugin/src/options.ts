@@ -437,7 +437,7 @@ export function parseOptions(
     if (params.output_legacy_commonjs) {
         o.transpileModule = ts.ModuleKind.CommonJS;
     }
-    if (params.exportclient) {
+    if (params.export_client) {
         o.exportClientEnabled = true;
     }
     return o;
