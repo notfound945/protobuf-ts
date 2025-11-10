@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "google/blocker/blocker.proto"; 
 
-service ServiceWithExportClient {
+service ExportClientService {
     // exportclient is not set, so the client code will be generated
     rpc EmptyOptionMethod (Req) returns (Resp);
     
@@ -21,6 +21,91 @@ service ServiceWithExportClient {
         // because they are referenced by other method
         option (blocker.exportclient) = 0;
     };
+
+    rpc GetAddressInfo (GetAddressInfoReq) returns (GetAddressInfoResp) {
+        option (blocker.exportclient) = 1;
+    }
+
+    rpc GetPersonInfo (GetPersonInfoReq) returns (GetPersonInfoResp) {
+        option (blocker.exportclient) = 1;
+    }
+
+    rpc GetPrivatePersonInfo (GetPrivatePersonInfoReq) returns (GetPrivatePersonInfoResp) {
+        option (blocker.exportclient) = 0;
+    }
+
+    rpc GetEmbeddedMessage (GetEmbeddedMessageReq) returns (GetEmbeddedMessageResp) {
+        option (blocker.exportclient) = 1;
+    }
+
+    rpc GetEmbeddedMessageWithEnum (GetEmbeddedMessageWithEnumReq) returns (GetEmbeddedMessageWithEnumResp) {
+        option (blocker.exportclient) = 0;
+    }
+}
+
+enum Gender {
+    UNKNOWN_GENDER = 0;
+    MALE = 1;
+    FEMALE = 2;
+}
+
+enum Education {
+    UNKNOWN_EDUCATION = 0;
+    PRIMARY = 1;
+    SECONDARY = 2;
+    TERTIARY = 3;
+}
+
+enum Career {
+    UNKNOWN_CAREER = 0;
+    STUDENT = 1;
+    EMPLOYED = 2;
+    UNEMPLOYED = 3;
+}
+
+message Address {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+}
+
+message SocialInfo {
+    string tel = 1;
+    string email = 2;
+    string website = 3;
+}
+
+message PublicPerson {
+    string name = 1;
+    int32 age = 2;
+    Gender gender = 3;
+    Education education = 4;
+    Career career = 5;
+    Address address = 6;
+    SocialInfo socialInfo = 7;
+}
+
+enum AssetType {
+    UNKNOWN_ASSET_TYPE = 0;
+    STOCK = 1;
+    BOND = 2;
+    REAL_ESTATE = 3;
+    CRYPTO = 4;
+    OTHER = 5;
+}
+
+message AssetInfo {
+    string assetId = 1;
+    string assetName = 2;
+    AssetType assetType = 3;
+    float assetValue = 4;
+}
+
+message PrivatePerson {
+    string name = 1;
+    int32 age = 2;
+    repeated AssetInfo assets = 3;
 }
 
 message Req {
@@ -37,4 +122,97 @@ message IgnoredClientReq {
 
 message IgnoredClientResp {
     string message = 1;
+}
+
+message GetAddressInfoReq {
+    string name = 1;
+}
+
+message GetAddressInfoResp {
+    Address address = 1;
+}
+
+message GetPersonInfoReq {
+    string personId = 1;
+}
+
+message GetPersonInfoResp {
+    PublicPerson person = 1;
+}
+
+message GetPrivatePersonInfoReq {
+    string personId = 1;
+}
+
+message GetPrivatePersonInfoResp {
+    PrivatePerson privatePerson = 1;
+}
+
+message GetEmbeddedMessageReq {
+    enum EmbeddedMessageType {
+        UNKNOWN_EMBEDDED_MESSAGE_TYPE = 0;
+        ADDRESS = 1;
+        PERSON = 2;
+        PRIVATE_PERSON = 3;
+    }
+    message SizeInfo {
+        int32 width = 1;
+        int32 height = 2;
+    }
+    string name = 1;
+    SizeInfo sizeInfo = 2;
+    EmbeddedMessageType embeddedMessageType = 3;
+}
+
+message GetEmbeddedMessageResp {
+    enum RespCode {
+        UNKNOWN_RESP_CODE = 0;
+        SUCCESS = 1;
+        ERROR = 2;
+    }
+    message ErrorInfo {
+        string errorMessage = 1;
+        uint32 errorCode = 2;
+    }
+    Address address = 1;
+    RespCode respCode = 2;
+    ErrorInfo errorInfo = 3;
+}
+
+message GetEmbeddedMessageWithEnumReq {
+    enum Day {
+        UNKNOWN_DAY = 0;
+        MONDAY = 1;
+        TUESDAY = 2;
+        WEDNESDAY = 3;
+        THURSDAY = 4;
+        FRIDAY = 5;
+        SATURDAY = 6;
+        SUNDAY = 7;
+    }
+    message WeatherInfo {
+        float temperature = 1;
+        double humidity = 2;
+        string windSpeed = 3;
+        int64 precipitation = 4;
+        int32 cloudCover = 5;
+    }
+    string name = 1;
+    Day day = 2;
+    WeatherInfo weatherInfo = 3;
+    Address address = 4;
+}
+
+message GetEmbeddedMessageWithEnumResp {
+    enum Code {
+        UNKNOWN_CODE = 0;
+        SUCCESS = 1;
+        ERROR = 2;
+    }
+    message Msg {
+        Code code = 1;
+        string message = 2;
+    }
+    Address address = 1;
+    Msg msg = 2;
 }

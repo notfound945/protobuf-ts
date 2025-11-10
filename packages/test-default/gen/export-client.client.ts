@@ -3,7 +3,17 @@
 // tslint:disable
 import type { RpcTransport } from "@protobuf-ts/runtime-rpc";
 import type { ServiceInfo } from "@protobuf-ts/runtime-rpc";
-import { ServiceWithExportClient } from "./export-client";
+import { ExportClientService } from "./export-client";
+import type { GetEmbeddedMessageWithEnumResp } from "./export-client";
+import type { GetEmbeddedMessageWithEnumReq } from "./export-client";
+import type { GetEmbeddedMessageResp } from "./export-client";
+import type { GetEmbeddedMessageReq } from "./export-client";
+import type { GetPrivatePersonInfoResp } from "./export-client";
+import type { GetPrivatePersonInfoReq } from "./export-client";
+import type { GetPersonInfoResp } from "./export-client";
+import type { GetPersonInfoReq } from "./export-client";
+import type { GetAddressInfoResp } from "./export-client";
+import type { GetAddressInfoReq } from "./export-client";
 import type { IgnoredClientResp } from "./export-client";
 import type { IgnoredClientReq } from "./export-client";
 import { stackIntercept } from "@protobuf-ts/runtime-rpc";
@@ -12,9 +22,9 @@ import type { Req } from "./export-client";
 import type { UnaryCall } from "@protobuf-ts/runtime-rpc";
 import type { RpcOptions } from "@protobuf-ts/runtime-rpc";
 /**
- * @generated from protobuf service ServiceWithExportClient
+ * @generated from protobuf service ExportClientService
  */
-export interface IServiceWithExportClientClient {
+export interface IExportClientServiceClient {
     /**
      * exportclient is not set, so the client code will be generated
      *
@@ -33,14 +43,34 @@ export interface IServiceWithExportClientClient {
      * @generated from protobuf rpc: MethodUseReferencedMessage
      */
     methodUseReferencedMessage(input: Req, options?: RpcOptions): UnaryCall<Req, Resp>;
+    /**
+     * @generated from protobuf rpc: GetAddressInfo
+     */
+    getAddressInfo(input: GetAddressInfoReq, options?: RpcOptions): UnaryCall<GetAddressInfoReq, GetAddressInfoResp>;
+    /**
+     * @generated from protobuf rpc: GetPersonInfo
+     */
+    getPersonInfo(input: GetPersonInfoReq, options?: RpcOptions): UnaryCall<GetPersonInfoReq, GetPersonInfoResp>;
+    /**
+     * @generated from protobuf rpc: GetPrivatePersonInfo
+     */
+    getPrivatePersonInfo(input: GetPrivatePersonInfoReq, options?: RpcOptions): UnaryCall<GetPrivatePersonInfoReq, GetPrivatePersonInfoResp>;
+    /**
+     * @generated from protobuf rpc: GetEmbeddedMessage
+     */
+    getEmbeddedMessage(input: GetEmbeddedMessageReq, options?: RpcOptions): UnaryCall<GetEmbeddedMessageReq, GetEmbeddedMessageResp>;
+    /**
+     * @generated from protobuf rpc: GetEmbeddedMessageWithEnum
+     */
+    getEmbeddedMessageWithEnum(input: GetEmbeddedMessageWithEnumReq, options?: RpcOptions): UnaryCall<GetEmbeddedMessageWithEnumReq, GetEmbeddedMessageWithEnumResp>;
 }
 /**
- * @generated from protobuf service ServiceWithExportClient
+ * @generated from protobuf service ExportClientService
  */
-export class ServiceWithExportClientClient implements IServiceWithExportClientClient, ServiceInfo {
-    typeName = ServiceWithExportClient.typeName;
-    methods = ServiceWithExportClient.methods;
-    options = ServiceWithExportClient.options;
+export class ExportClientServiceClient implements IExportClientServiceClient, ServiceInfo {
+    typeName = ExportClientService.typeName;
+    methods = ExportClientService.methods;
+    options = ExportClientService.options;
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
@@ -72,5 +102,40 @@ export class ServiceWithExportClientClient implements IServiceWithExportClientCl
     methodUseReferencedMessage(input: Req, options?: RpcOptions): UnaryCall<Req, Resp> {
         const method = this.methods[3], opt = this._transport.mergeOptions(options);
         return stackIntercept<Req, Resp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetAddressInfo
+     */
+    getAddressInfo(input: GetAddressInfoReq, options?: RpcOptions): UnaryCall<GetAddressInfoReq, GetAddressInfoResp> {
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetAddressInfoReq, GetAddressInfoResp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetPersonInfo
+     */
+    getPersonInfo(input: GetPersonInfoReq, options?: RpcOptions): UnaryCall<GetPersonInfoReq, GetPersonInfoResp> {
+        const method = this.methods[5], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetPersonInfoReq, GetPersonInfoResp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetPrivatePersonInfo
+     */
+    getPrivatePersonInfo(input: GetPrivatePersonInfoReq, options?: RpcOptions): UnaryCall<GetPrivatePersonInfoReq, GetPrivatePersonInfoResp> {
+        const method = this.methods[6], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetPrivatePersonInfoReq, GetPrivatePersonInfoResp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetEmbeddedMessage
+     */
+    getEmbeddedMessage(input: GetEmbeddedMessageReq, options?: RpcOptions): UnaryCall<GetEmbeddedMessageReq, GetEmbeddedMessageResp> {
+        const method = this.methods[7], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetEmbeddedMessageReq, GetEmbeddedMessageResp>("unary", this._transport, method, opt, input);
+    }
+    /**
+     * @generated from protobuf rpc: GetEmbeddedMessageWithEnum
+     */
+    getEmbeddedMessageWithEnum(input: GetEmbeddedMessageWithEnumReq, options?: RpcOptions): UnaryCall<GetEmbeddedMessageWithEnumReq, GetEmbeddedMessageWithEnumResp> {
+        const method = this.methods[8], opt = this._transport.mergeOptions(options);
+        return stackIntercept<GetEmbeddedMessageWithEnumReq, GetEmbeddedMessageWithEnumResp>("unary", this._transport, method, opt, input);
     }
 }

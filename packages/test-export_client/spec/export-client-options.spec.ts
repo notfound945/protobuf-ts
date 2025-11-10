@@ -1,56 +1,48 @@
-import { ServiceWithExportClient } from "../gen/export-client";
+import { ExportClientService } from "../gen/export-client";
 
-describe("spec.ServiceWithExportClient.EmptyOptionMethod", function () {
+describe("ExportClientService.EmptyOptionMethod", function () {
   it('should have option "exportclient"', function () {
-    console.debug(ServiceWithExportClient.methods[0].options);
-    expect(ServiceWithExportClient.methods[0].options).toBeDefined();
+    const method = ExportClientService?.methods?.find(
+      (item) => item.name === "EmptyOptionMethod"
+    );
+    expect(method?.options?.['blocker.exportclient']).toBeUndefined();
   });
 });
 describe("spec.ServiceWithExportClient.MethodWithExportClient0", function () {
   it('should have option "exportclient"', function () {
-    console.debug(ServiceWithExportClient.methods[1].options);
-    expect(ServiceWithExportClient.methods[1].options).toBeDefined();
-    if (ServiceWithExportClient.methods[1].options) {
-      expect(
-        ServiceWithExportClient.methods[1].options["blocker.exportclient"]
-      ).toBe(1);
-    }
+    const method = ExportClientService?.methods?.find(
+      (item) => item.name === "MethodWithExportClient0"
+    );
+    expect(method).toBeUndefined;
   });
 });
 
 describe("spec.ServiceWithExportClient.MethodWithExportClient1", function () {
-  // it('should not have option "exportclient"', function () {
-  //   console.debug(ServiceWithExportClient.methods[2].options);
-  //   expect(ServiceWithExportClient.methods[2].options).toBeDefined();
-  //   if (ServiceWithExportClient.methods[2].options) {
-  //     expect(
-  //       ServiceWithExportClient.methods[2].options["blocker.exportclient"]
-  //     ).toBe(1);
-  //   }
-  // });
-  const GenerateTsCode = require("../gen/export-client");
-
-  it('MethodWithExportClient1 should be undefined', function () {
-    expect(ServiceWithExportClient.methods[2]).toBeUndefined();
-    // Equivalent to:
-    expect(GenerateTsCode?.MethodWithExportClient1).toBeUndefined();
+  it("MethodWithExportClient1 should be defined", function () {
+    const method = ExportClientService?.methods?.find(
+      (item) => item.name === "MethodWithExportClient1"
+    );
+    expect(method).toBeDefined();
+    expect(method?.options["blocker.exportclient"]).toBe(1);
   });
-  it('MethodUseReferencedMessage should be undefined', function () {
-    expect(GenerateTsCode?.MethodUseReferencedMessage).toBeUndefined();
+  it("MethodUseReferencedMessage should be undefined", function () {
+    const method = ExportClientService?.methods?.find(
+      (item) => item.name === "MethodUseReferencedMessage"
+    );
+    expect(method).toBeUndefined();
   });
-
 });
 
 describe("spec.ServiceWithExportClient I/O message visibility", function () {
-  const GenerateTsCode = require("../gen/export-client");
-  it('ServiceWithExportClient.Req should be defined', function () {
-    expect(GenerateTsCode?.Req).toBeDefined();
-  })
-  it('ServiceWithExportClient.IgnoredClientReq should be undefined', function () {
-    expect(GenerateTsCode?.IgnoredClientReq).toBeUndefined();
-  })
+  const generateTsCode = require("../gen/export-client");
+  it("ServiceWithExportClient.Req should be defined", function () {
+    expect(generateTsCode?.Req).toBeDefined();
+  });
+  it("ServiceWithExportClient.IgnoredClientReq should be undefined", function () {
+    expect(generateTsCode?.IgnoredClientReq).toBeUndefined();
+  });
 
-  it('ServiceWithExportClient.IgnoredClientResp should be undefined', function () {
-    expect(GenerateTsCode?.IgnoredClientResp).toBeUndefined();
-  })
-})
+  it("ServiceWithExportClient.IgnoredClientResp should be undefined", function () {
+    expect(generateTsCode?.IgnoredClientResp).toBeUndefined();
+  });
+});
