@@ -61,4 +61,7 @@ describe("spec.ServiceWithExportClient.GetEmbeddedMessageWithEnum", function () 
   it('spec.GetEmbeddedMessageWithEnumReq_WeatherInfo should be undefined', function () {
     expect(generateTsCode?.GetEmbeddedMessageWithEnumReq_WeatherInfo).toBeUndefined();
   });
+  it('spec.GetEmbeddedMessageWithEnumResp_Msg should be defined', function () {
+    expect(generateTsCode?.GetEmbeddedMessageWithEnumResp_Msg).toBeUndefined();
+  });
 });
