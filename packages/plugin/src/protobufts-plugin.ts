@@ -88,31 +88,37 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
                 outClientGrpc = fileTable.create(descFile, 'grpc1-client');
 
             // When exportClient filtering is enabled, compute which messages should be skipped:
-            // - Messages used only as I/O of filtered methods (exportclient=0)
-            // - But DO NOT skip if:
-            //   a) The message is used by any kept method as I/O
-            //   b) The message is referenced by any field of any message
+            // - Messages used only as I/O of filtered methods (exportclient=0), including their nested/transitively-referenced messages and enums
+            // - But DO NOT skip if they are reachable (directly or transitively) from kept methods' I/O
+            //   In other words, compute two reachability closures (kept vs excluded) and remove only (excluded - kept).
             const skipMessages = new Set<string>();
+            const skipEnums = new Set<string>();
             if ((options as any).exportClientEnabled) {
-                const keptIOAll = new Set<string>();
-                const excludedIOAll = new Set<string>();
-                const fieldReferencedAll = new Set<string>();
-
-                // Collect field-referenced message type names across ALL files
+                // Build adjacency for message -> referenced messages / enums
+                const messageToMessageRefs = new Map<string, Set<string>>();
+                const messageToEnumRefs = new Map<string, Set<string>>();
                 for (const f of registry.files) {
                     for (const t of nestedTypes(f)) {
                         if (t.kind === "message") {
+                            const msgRefs = messageToMessageRefs.get(t.typeName) ?? new Set<string>();
+                            const enumRefs = messageToEnumRefs.get(t.typeName) ?? new Set<string>();
                             for (const field of t.fields) {
-                                const refType = field.message?.typeName;
-                                if (refType) {
-                                    fieldReferencedAll.add(refType);
+                                if (field.message?.typeName) {
+                                    msgRefs.add(field.message.typeName);
+                                }
+                                if (field.enum?.typeName) {
+                                    enumRefs.add(field.enum.typeName);
                                 }
                             }
+                            messageToMessageRefs.set(t.typeName, msgRefs);
+                            messageToEnumRefs.set(t.typeName, enumRefs);
                         }
                     }
                 }
 
-                // Collect kept/excluded method I/O message types across ALL services
+                // Collect kept/excluded method I/O roots across ALL services
+                const keptRoots = new Set<string>();
+                const excludedRoots = new Set<string>();
                 for (const f of registry.files) {
                     for (const t of nestedTypes(f)) {
                         if (t.kind === "service") {
@@ -122,22 +128,60 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
                                 const inputType = m.input.typeName;
                                 const outputType = m.output.typeName;
                                 if (keptNames.has(m.name)) {
-                                    keptIOAll.add(inputType);
-                                    keptIOAll.add(outputType);
+                                    keptRoots.add(inputType);
+                                    keptRoots.add(outputType);
                                 } else {
-                                    excludedIOAll.add(inputType);
-                                    excludedIOAll.add(outputType);
+                                    excludedRoots.add(inputType);
+                                    excludedRoots.add(outputType);
                                 }
                             }
                         }
                     }
                 }
 
-                // Compute final skip set: excluded - (kept ∪ fieldReferenced)
-                const keepSet = new Set<string>([...keptIOAll, ...fieldReferencedAll]);
-                for (const typeName of excludedIOAll) {
-                    if (!keepSet.has(typeName)) {
-                        skipMessages.add(typeName);
+                // BFS reachability closures
+                const bfsMessages = (start: Set<string>): Set<string> => {
+                    const visited = new Set<string>();
+                    const queue: string[] = [...start];
+                    for (const s of start) visited.add(s);
+                    while (queue.length) {
+                        const cur = queue.shift() as string;
+                        const next = messageToMessageRefs.get(cur);
+                        if (!next) continue;
+                        for (const n of next) {
+                            if (!visited.has(n)) {
+                                visited.add(n);
+                                queue.push(n);
+                            }
+                        }
+                    }
+                    return visited;
+                };
+                const collectEnums = (msgs: Set<string>): Set<string> => {
+                    const enums = new Set<string>();
+                    for (const m of msgs) {
+                        const e = messageToEnumRefs.get(m);
+                        if (e) {
+                            for (const en of e) enums.add(en);
+                        }
+                    }
+                    return enums;
+                };
+
+                const keptReachableMessages = bfsMessages(keptRoots);
+                const excludedReachableMessages = bfsMessages(excludedRoots);
+                const keptReachableEnums = collectEnums(keptReachableMessages);
+                const excludedReachableEnums = collectEnums(excludedReachableMessages);
+
+                // Final skip sets are those only reachable from excluded closure
+                for (const m of excludedReachableMessages) {
+                    if (!keptReachableMessages.has(m)) {
+                        skipMessages.add(m);
+                    }
+                }
+                for (const e of excludedReachableEnums) {
+                    if (!keptReachableEnums.has(e)) {
+                        skipEnums.add(e);
                     }
                 }
             }
@@ -170,7 +214,9 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
                         }
                         break;
                     case "enum":
-                        genEnum.generateEnum(outMain, desc);
+                        if (!(options as any).exportClientEnabled || !skipEnums.has(desc.typeName)) {
+                            genEnum.generateEnum(outMain, desc);
+                        }
                         break;
                 }
             }

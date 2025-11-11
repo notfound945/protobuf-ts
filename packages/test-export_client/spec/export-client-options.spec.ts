@@ -46,3 +46,19 @@ describe("spec.ServiceWithExportClient I/O message visibility", function () {
     expect(generateTsCode?.IgnoredClientResp).toBeUndefined();
   });
 });
+
+
+describe("spec.ServiceWithExportClient.GetEmbeddedMessageWithEnum", function () {
+  const generateTsCode = require("../gen/export-client");
+
+  it("GetEmbeddedMessageWithEnum should be defined", function () {
+    const method = ExportClientService?.methods?.find(
+      (item) => item.name === "GetEmbeddedMessageWithEnum"
+    );
+    expect(method).toBeUndefined();
+  });
+
+  it('spec.GetEmbeddedMessageWithEnumReq_WeatherInfo should be undefined', function () {
+    expect(generateTsCode?.GetEmbeddedMessageWithEnumReq_WeatherInfo).toBeUndefined();
+  });
+});
