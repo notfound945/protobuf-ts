@@ -1,5 +1,5 @@
 {
-  "name": "@protobuf-ts/plugin",
+  "name": "@console-pbts/plugin",
   "version": "2.11.1",
   "description": "The protocol buffer compiler plugin \"protobuf-ts\" generates TypeScript, gRPC-web, Twirp, and more.",
   "scripts": {
@@ -14,9 +14,6 @@
     "protoc-gen-ts": "./bin/protoc-gen-ts",
     "protoc-gen-dump": "./bin/protoc-gen-dump"
   },
-  "license": "Apache-2.0",
-  "author": "Timo Stamm <ts@timostamm.com>",
-  "homepage": "https://github.com/timostamm/protobuf-ts",
   "keywords": [
     "Protocol Buffers",
     "protobuf",
@@ -28,11 +25,6 @@
     "Twirp",
     "Reflection"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/timostamm/protobuf-ts.git",
-    "directory": "packages/plugin"
-  },
   "publishConfig": {
     "access": "public"
   },
@@ -49,8 +41,8 @@
   "dependencies": {
     "@bufbuild/protobuf": "^2.4.0",
     "@bufbuild/protoplugin": "^2.4.0",
-    "@protobuf-ts/runtime": "^2.11.1",
-    "@protobuf-ts/runtime-rpc": "^2.11.1",
+    "@console-pbts/runtime": "^2.11.1",
+    "@console-pbts/runtime-rpc": "^2.11.1",
     "typescript": "^3.9"
   }
 }
