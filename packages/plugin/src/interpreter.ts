@@ -68,6 +68,7 @@ export class Interpreter {
             keepEnumPrefix: boolean,
             useProtoFieldName: boolean,
             exportClientEnabled: boolean,
+            exportConsoleEnabled: boolean,
         },
     ) {
     }
@@ -291,7 +292,7 @@ export class Interpreter {
         let desc = this.registry.getService(typeName);
         assert(desc);
         
-        // Filter methods based on blocker.exportclient option if enabled
+        // Filter methods based on blocker.exportclient / blocker.exportconsole options if enabled
         let filteredMethods = methods;
         if (this.options.exportClientEnabled) {
             filteredMethods = methods.filter(method => {
@@ -304,6 +305,14 @@ export class Interpreter {
                     }
                 }
                 return true;
+            });
+        }
+        if (this.options.exportConsoleEnabled) {
+            filteredMethods = filteredMethods.filter(method => {
+                const methodOptions = this.readOptions(method, excludeOptions);
+                // Keep only if explicitly set to 1
+                const v = methodOptions ? methodOptions['blocker.exportconsole'] : undefined;
+                return v === 1 || v === '1';
             });
         }
         

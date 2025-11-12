@@ -35,7 +35,8 @@
     "packages/twirp-transport",
     "packages/test-server_generic",
     "packages/test-server_grpc1-client_grpc1",
-    "packages/test-export_client"
+    "packages/test-export_client",
+    "packages/test-export_console"
   ],
   "devDependencies": {
     "@types/jasmine": "^3.5.10",

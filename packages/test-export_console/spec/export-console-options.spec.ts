@@ -1,67 +1,70 @@
-import { ExportClientService } from "../gen/export-client";
+import { ExportConsoleService } from "../gen/export-console";
 
-describe("ExportClientService.EmptyOptionMethod", function () {
+describe("ExportConsoleService.EmptyOptionConsoleMethod", function () {
   it('should have option "exportclient"', function () {
-    const method = ExportClientService?.methods?.find(
-      (item) => item.name === "EmptyOptionMethod"
+    const method = ExportConsoleService?.methods?.find(
+      (item) => item.name === "EmptyOptionConsoleMethod"
     );
-    expect(method?.options?.['blocker.exportclient']).toBeUndefined();
+    expect(method?.options?.["blocker.exportconsole"]).toBeUndefined();
   });
 });
-describe("spec.ServiceWithExportClient.MethodWithExportClient0", function () {
-  it('should have option "exportclient"', function () {
-    const method = ExportClientService?.methods?.find(
-      (item) => item.name === "MethodWithExportClient0"
+describe("spec.ServiceWithExportConsole.MethodWithExportConsole0", function () {
+  it('should have option "exportconsole"', function () {
+    const method = ExportConsoleService?.methods?.find(
+      (item) => item.name === "MethodWithExportConsole0"
     );
     expect(method).toBeUndefined;
   });
 });
 
-describe("spec.ServiceWithExportClient.MethodWithExportClient1", function () {
-  it("MethodWithExportClient1 should be defined", function () {
-    const method = ExportClientService?.methods?.find(
-      (item) => item.name === "MethodWithExportClient1"
+describe("spec.ServiceWithExportConsole.MethodWithExportConsole1", function () {
+  it("MethodWithExportConsole1 should be defined", function () {
+    const method = ExportConsoleService?.methods?.find(
+      (item) => item.name === "MethodWithExportConsole1"
     );
     expect(method).toBeDefined();
-    expect(method?.options["blocker.exportclient"]).toBe(1);
+    expect(method?.options["blocker.exportconsole"]).toBe(1);
   });
-  it("MethodUseReferencedMessage should be undefined", function () {
-    const method = ExportClientService?.methods?.find(
-      (item) => item.name === "MethodUseReferencedMessage"
+  it("MethodUseReferencedConsoleMessage should be undefined", function () {
+    const method = ExportConsoleService?.methods?.find(
+      (item) => item.name === "MethodUseReferencedConsoleMessage"
     );
     expect(method).toBeUndefined();
   });
 });
 
-describe("spec.ServiceWithExportClient I/O message visibility", function () {
-  const generateTsCode = require("../gen/export-client");
-  it("ServiceWithExportClient.Req should be defined", function () {
-    expect(generateTsCode?.Req).toBeDefined();
+describe("spec.ServiceWithExportConsole I/O message visibility", function () {
+  const generateTsCode = require("../gen/export-console");
+  it("ServiceWithExportConsole.ConsoleReq should be defined", function () {
+    expect(generateTsCode?.ConsoleReq).toBeDefined();
   });
-  it("ServiceWithExportClient.IgnoredClientReq should be undefined", function () {
-    expect(generateTsCode?.IgnoredClientReq).toBeUndefined();
+  it("ServiceWithExportConsole.IgnoredConsoleReq should be undefined", function () {
+    expect(generateTsCode?.IgnoredConsoleReq).toBeUndefined();
   });
 
-  it("ServiceWithExportClient.IgnoredClientResp should be undefined", function () {
-    expect(generateTsCode?.IgnoredClientResp).toBeUndefined();
+  it("ServiceWithExportConsole.IgnoredConsoleResp should be undefined", function () {
+    expect(generateTsCode?.IgnoredConsoleResp).toBeUndefined();
   });
 });
 
+describe("spec.ServiceWithExportConsole.GetEmbeddedConsoleMessageWithEnum", function () {
+  const generateTsCode = require("../gen/export-console");
 
-describe("spec.ServiceWithExportClient.GetEmbeddedMessageWithEnum", function () {
-  const generateTsCode = require("../gen/export-client");
-
-  it("GetEmbeddedMessageWithEnum should be defined", function () {
-    const method = ExportClientService?.methods?.find(
-      (item) => item.name === "GetEmbeddedMessageWithEnum"
+  it("GetEmbeddedConsoleMessageWithEnum should be defined", function () {
+    const method = ExportConsoleService?.methods?.find(
+      (item) => item.name === "GetEmbeddedConsoleMessageWithEnum"
     );
     expect(method).toBeUndefined();
   });
 
-  it('spec.GetEmbeddedMessageWithEnumReq_WeatherInfo should be undefined', function () {
-    expect(generateTsCode?.GetEmbeddedMessageWithEnumReq_WeatherInfo).toBeUndefined();
+  it("spec.GetEmbeddedConsoleMessageWithEnumReq_WeatherInfo should be undefined", function () {
+    expect(
+      generateTsCode?.GetEmbeddedConsoleMessageWithEnumReq_WeatherInfo
+    ).toBeUndefined();
   });
-  it('spec.GetEmbeddedMessageWithEnumResp_Msg should be defined', function () {
-    expect(generateTsCode?.GetEmbeddedMessageWithEnumResp_Msg).toBeUndefined();
+  it("spec.GetEmbeddedConsoleMessageWithEnumResp_Msg should be defined", function () {
+    expect(
+      generateTsCode?.GetEmbeddedConsoleMessageWithEnumResp_Msg
+    ).toBeUndefined();
   });
 });

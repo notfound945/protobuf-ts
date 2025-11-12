@@ -13,13 +13,7 @@
       "outputs": ["gen/**"]
     },
     "test": {
-      "dependsOn": ["build", "sync-default-specs"],
-      "cache": false
-    },
-    "sync-default-specs": {
-      "dependsOn": ["^build"],
-      "inputs": ["../test-default/spec/**/*.ts"],
-      "outputs": ["spec/**/*.ts"],
+      "dependsOn": ["build"],
       "cache": false
     },
     "conformance": {

@@ -231,6 +231,10 @@ const parseParameter = createOptionParser({
         kind: "flag",
         description: "When enabled, RPC methods with option (blocker.exportclient) = 0 will not be generated.",
     },
+    export_console: {
+        kind: "flag",
+        description: "When enabled, only RPC methods with option (blocker.exportconsole) = 1 will be generated.",
+    },
 });
 
 
@@ -261,6 +265,7 @@ export interface Options {
     readonly forceDisableServices: boolean;
     readonly addPbSuffix: boolean;
     readonly exportClientEnabled: boolean;
+    readonly exportConsoleEnabled: boolean;
     getOptimizeMode(file: DescFile): FileOptions_OptimizeMode;
     getClientStyles(descriptor: DescService): ClientStyle[];
     getServerStyles(descriptor: DescService): ServerStyle[];
@@ -295,6 +300,7 @@ export function parseOptions(
         forceDisableServices: false,
         addPbSuffix: false,
         exportClientEnabled: false,
+        exportConsoleEnabled: false,
         getOptimizeMode(file: DescFile): FileOptions_OptimizeMode {
             if (this.forcedOptimizeMode !== undefined) {
                 return this.forcedOptimizeMode;
@@ -439,6 +445,9 @@ export function parseOptions(
     }
     if (params.export_client) {
         o.exportClientEnabled = true;
+    }
+    if (params.export_console) {
+        o.exportConsoleEnabled = true;
     }
     return o;
 }

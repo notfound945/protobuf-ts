@@ -13,3 +13,10 @@ test the export_client option:
 ```
 npx turbo run test --filter=@protobuf-ts/test-export_client
 ```
+
+
+test the export_console option:
+
+```
+npx turbo run test --filter=@protobuf-ts/test-export_console
+```
