@@ -14,7 +14,7 @@ import {
     stackIntercept,
     UnaryCall
 } from "../src";
-import type {IMessageType} from "@protobuf-ts/runtime";
+import type {IMessageType} from "@console-pbts/runtime";
 
 
 const TestService = new ServiceType("TestService", [

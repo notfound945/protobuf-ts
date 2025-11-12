@@ -1,4 +1,4 @@
-import {isEnumObject} from "@protobuf-ts/runtime";
+import {isEnumObject} from "@console-pbts/runtime";
 import {RuntimeEnumBuilder} from "../src/interpreter";
 
 

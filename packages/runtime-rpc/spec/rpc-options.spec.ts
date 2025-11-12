@@ -1,5 +1,5 @@
 import {mergeRpcOptions, RpcOptions} from "../src";
-import type {IMessageType} from "@protobuf-ts/runtime";
+import type {IMessageType} from "@console-pbts/runtime";
 
 
 describe('mergeRpcOptions()', () => {

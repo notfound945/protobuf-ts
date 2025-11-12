@@ -1,4 +1,4 @@
-import * as rt from "@protobuf-ts/runtime";
+import * as rt from "@console-pbts/runtime";
 import * as ts from "typescript";
 import {DescFile, DescService, getOption} from "@bufbuild/protobuf";
 import {qualifiedName} from "@bufbuild/protobuf/reflect";
@@ -177,7 +177,7 @@ const parseParameter = createOptionParser({
     server_generic: {
         kind: "flag",
         description: "Generate a generic server interface. Adapters are used to serve the service, \n" +
-            "for example @protobuf-ts/grpc-backend for gRPC. \n" +
+            "for example @console-pbts/grpc-backend for gRPC. \n" +
             "Note that this is an experimental feature and may change with a minor release. \n" +
             "Only applies to services that do *not* use the option `ts.server`.",
         excludes: ['server_none', 'force_server_none', 'force_disable_services'],
@@ -288,8 +288,8 @@ export function parseOptions(
         forcedServerStyle: undefined,
         synthesizeEnumZeroValue: 'UNSPECIFIED$',
         oneofKindDiscriminator: 'oneofKind',
-        runtimeRpcImportPath: '@protobuf-ts/runtime-rpc',
-        runtimeImportPath: '@protobuf-ts/runtime',
+        runtimeRpcImportPath: '@console-pbts/runtime-rpc',
+        runtimeImportPath: '@console-pbts/runtime',
         forceExcludeAllOptions: false,
         keepEnumPrefix: false,
         useProtoFieldName: false,

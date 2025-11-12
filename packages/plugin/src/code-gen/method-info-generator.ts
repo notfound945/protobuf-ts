@@ -1,5 +1,5 @@
-import * as rt from "@protobuf-ts/runtime";
-import * as rpc from "@protobuf-ts/runtime-rpc";
+import * as rt from "@console-pbts/runtime";
+import * as rpc from "@console-pbts/runtime-rpc";
 import * as ts from "typescript";
 import {TypescriptFile} from "../framework/typescript-file";
 import {TypeScriptImports} from "../framework/typescript-imports";

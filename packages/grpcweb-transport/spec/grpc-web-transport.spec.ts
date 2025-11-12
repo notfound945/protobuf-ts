@@ -1,6 +1,6 @@
-import {Deferred, MethodInfo, RpcError, RpcInterceptor, ServiceType, UnaryCall} from "@protobuf-ts/runtime-rpc";
+import {Deferred, MethodInfo, RpcError, RpcInterceptor, ServiceType, UnaryCall} from "@console-pbts/runtime-rpc";
 import {GrpcStatusCode, GrpcWebFetchTransport, GrpcWebFrame, GrpcWebOptions} from "../src";
-import {IMessageType, MessageType, ScalarType} from "@protobuf-ts/runtime";
+import {IMessageType, MessageType, ScalarType} from "@console-pbts/runtime";
 import { frame, getResponse, getTrailerFrame, makeWhatWgStream, microTaskDelay } from "./support/utils.spec";
 
 interface RequestMessage {

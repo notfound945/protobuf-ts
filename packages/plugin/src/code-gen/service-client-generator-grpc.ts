@@ -1,8 +1,8 @@
 import {ServiceClientGeneratorBase} from "./service-client-generator-base";
 import {TypescriptFile} from "../framework/typescript-file";
 import * as ts from "typescript";
-import * as rpc from "@protobuf-ts/runtime-rpc";
-import {assert} from "@protobuf-ts/runtime";
+import * as rpc from "@console-pbts/runtime-rpc";
+import {assert} from "@console-pbts/runtime";
 import {DescService} from "@bufbuild/protobuf";
 
 

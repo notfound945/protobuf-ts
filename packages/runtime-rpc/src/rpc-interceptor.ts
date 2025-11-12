@@ -5,7 +5,7 @@ import type {RpcTransport} from "./rpc-transport";
 import type {MethodInfo} from "./reflection-info";
 import type {RpcOptions} from "./rpc-options";
 import type {UnaryCall} from "./unary-call";
-import {assertNever} from "@protobuf-ts/runtime";
+import {assertNever} from "@console-pbts/runtime";
 
 
 /**

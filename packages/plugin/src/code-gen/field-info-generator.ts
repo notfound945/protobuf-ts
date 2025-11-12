@@ -1,9 +1,9 @@
-import * as rt from "@protobuf-ts/runtime";
+import * as rt from "@console-pbts/runtime";
 import * as ts from "typescript";
 import {TypescriptFile} from "../framework/typescript-file";
 import {TypeScriptImports} from "../framework/typescript-imports";
 import {FileRegistry} from "@bufbuild/protobuf";
-import {assert} from "@protobuf-ts/runtime";
+import {assert} from "@console-pbts/runtime";
 import {typescriptLiteralFromValue} from "../framework/typescript-literal-from-value";
 
 

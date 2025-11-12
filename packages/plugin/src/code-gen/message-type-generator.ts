@@ -1,5 +1,5 @@
 import * as ts from "typescript";
-import {LongType} from "@protobuf-ts/runtime";
+import {LongType} from "@console-pbts/runtime";
 import {TypescriptFile} from "../framework/typescript-file";
 import {CommentGenerator} from "./comment-generator";
 import {WellKnownTypes} from "../message-type-extensions/well-known-types";

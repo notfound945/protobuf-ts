@@ -1,7 +1,7 @@
-import * as rpc from "@protobuf-ts/runtime-rpc";
+import * as rpc from "@console-pbts/runtime-rpc";
 import {TypescriptFile} from "../framework/typescript-file";
 import * as ts from "typescript";
-import {assert} from "@protobuf-ts/runtime";
+import {assert} from "@console-pbts/runtime";
 import {CommentGenerator} from "./comment-generator";
 import {createLocalTypeName} from "./local-type-name";
 import {Interpreter} from "../interpreter";

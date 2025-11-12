@@ -1,5 +1,5 @@
-import {base64decode, base64encode} from "@protobuf-ts/runtime";
-import {RpcError, RpcMetadata} from "@protobuf-ts/runtime-rpc";
+import {base64decode, base64encode} from "@console-pbts/runtime";
+import {RpcError, RpcMetadata} from "@console-pbts/runtime-rpc";
 import {GrpcStatusCode} from "./goog-grpc-status-code";
 
 

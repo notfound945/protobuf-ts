@@ -264,7 +264,7 @@ function tryReadProtocVersion(pkgPath) {
  * @returns {string|undefined}
  */
 module.exports.findProtobufTs = function (cwd) {
-    let plugin = path.join(cwd, "node_modules", "@protobuf-ts", "plugin");
+    let plugin = path.join(cwd, "node_modules", "@console-pbts", "plugin");
     return fs.existsSync(plugin) ? plugin : undefined;
 }
 

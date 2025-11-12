@@ -1,4 +1,4 @@
-import {assertNever} from "@protobuf-ts/runtime";
+import {assertNever} from "@console-pbts/runtime";
 import * as ts from "typescript";
 
 

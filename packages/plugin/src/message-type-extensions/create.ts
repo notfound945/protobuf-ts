@@ -1,6 +1,6 @@
 import {TypescriptFile} from "../framework/typescript-file";
 import * as ts from "typescript";
-import {LongType} from "@protobuf-ts/runtime";
+import {LongType} from "@console-pbts/runtime";
 import {CustomMethodGenerator} from "../code-gen/message-type-generator";
 import {Interpreter} from "../interpreter";
 import {DescMessage} from "@bufbuild/protobuf";

@@ -1,9 +1,9 @@
 import {TypescriptFile} from "../framework/typescript-file";
 import * as ts from "typescript";
-import * as rpc from "@protobuf-ts/runtime-rpc";
+import * as rpc from "@console-pbts/runtime-rpc";
 import {CommentGenerator} from "./comment-generator";
 import {createLocalTypeName} from "./local-type-name";
-import {assert} from "@protobuf-ts/runtime";
+import {assert} from "@console-pbts/runtime";
 import {Interpreter} from "../interpreter";
 import {DescService, FileRegistry} from "@bufbuild/protobuf";
 import {TypeScriptImports} from "../framework/typescript-imports";

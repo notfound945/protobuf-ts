@@ -1,8 +1,8 @@
 import * as ts from "typescript";
 import {TypescriptFile} from "../framework/typescript-file";
-import * as rt from "@protobuf-ts/runtime";
+import * as rt from "@console-pbts/runtime";
 import {CustomMethodGenerator} from "../code-gen/message-type-generator";
-import {assert} from "@protobuf-ts/runtime";
+import {assert} from "@console-pbts/runtime";
 import {Interpreter} from "../interpreter";
 import {DescMessage, FileRegistry, ScalarType} from "@bufbuild/protobuf";
 import {getDeclarationString} from "@bufbuild/protoplugin";

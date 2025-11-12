@@ -9,7 +9,7 @@ import {
 import {
     FileDescriptorSet as speedBigintType
 } from "./gen/protobuf-ts.speed-bigint/google/protobuf/descriptor";
-import {BinaryReader} from "@protobuf-ts/runtime";
+import {BinaryReader} from "@console-pbts/runtime";
 
 function bench(name: string, fn: () => void, durationSeconds = 5) {
     let startTs = performance.now();

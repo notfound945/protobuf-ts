@@ -144,7 +144,7 @@ export function mergeBinaryOptions<T extends BinaryWriteOptions | BinaryReadOpti
 
 
 /**
- * This interface is used throughout @protobuf-ts to read
+ * This interface is used throughout @console-pbts to read
  * protobuf binary format.
  *
  * While not completely compatible, this interface is closely aligned
@@ -252,7 +252,7 @@ export interface IBinaryReader {
 
 
 /**
- * This interface is used throughout @protobuf-ts to write
+ * This interface is used throughout @console-pbts to write
  * protobuf binary format.
  *
  * While not completely compatible, this interface is closely aligned

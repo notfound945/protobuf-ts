@@ -1,6 +1,6 @@
 import * as ts from "typescript";
-import * as rt from "@protobuf-ts/runtime";
-import {assert} from "@protobuf-ts/runtime";
+import * as rt from "@console-pbts/runtime";
+import {assert} from "@console-pbts/runtime";
 import {TypescriptFile} from "../framework/typescript-file";
 import {CommentGenerator} from "./comment-generator";
 import {createLocalTypeName} from "./local-type-name";

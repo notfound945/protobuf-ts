@@ -1,5 +1,5 @@
 import {getFileDescriptorSet} from "./support/helpers";
-import * as rt from "@protobuf-ts/runtime";
+import * as rt from "@console-pbts/runtime";
 import {Interpreter} from "../src/interpreter";
 import {createFileRegistry} from "@bufbuild/protobuf";
 
