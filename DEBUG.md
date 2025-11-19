@@ -18,5 +18,5 @@ npx turbo run test --filter=@console-pbts/test-export_client
 test the export_console option:
 
 ```
-npx turbo run test --filter=@console-pbts/test-export_console
+npx turbo run test --filter=@console-pbts/test-ignore_export_console
 ```

@@ -1,0 +1,217 @@
+syntax = "proto3";
+import "google/blocker/blocker.proto"; 
+
+service IgnoreExportConsoleService {
+    // ignoreExportConsole is not set, so the client code will not be generated
+    rpc EmptyOptionConsoleMethod (ConsoleReq) returns (ConsoleResp);
+    
+    rpc MethodWithExportConsole0 (IgnoredConsoleReq) returns (IgnoredConsoleResp) {
+        // ignoreExportConsole is set to 1, so the client code will not be generated
+        option (blocker.ignoreExportConsole) = 1;
+    };
+
+    rpc MethodWithExportConsole1 (ConsoleReq) returns (ConsoleResp) {
+        option (blocker.ignoreExportConsole) = 0;
+    };
+
+    rpc MethodUseReferencedConsoleMessage (ConsoleReq) returns (ConsoleResp) {
+        // ignoreExportConsole is set to 1, so the client code will not be generated
+        // but the Req & Resp messages will be generated
+        // because they are referenced by other method
+        option (blocker.ignoreExportConsole) = 1;
+    };
+
+    rpc GetAddressConsoleInfo (GetAddressConsoleInfoReq) returns (GetAddressConsoleInfoResp) {
+        option (blocker.ignoreExportConsole) = 1;
+    }
+
+    rpc GetPersonConsoleInfo (GetPersonConsoleInfoReq) returns (GetPersonConsoleInfoResp) {
+        option (blocker.ignoreExportConsole) = 1;
+    }
+
+    rpc GetPrivatePersonConsoleInfo (GetPrivatePersonConsoleInfoReq) returns (GetPrivatePersonConsoleInfoResp) {
+        option (blocker.ignoreExportConsole) = 0;
+    }
+
+    rpc GetEmbeddedConsoleMessage (GetEmbeddedConsoleMessageReq) returns (GetEmbeddedConsoleMessageResp) {
+        option (blocker.ignoreExportConsole) = 1;
+    }
+
+    rpc GetEmbeddedConsoleMessageWithEnum (GetEmbeddedConsoleMessageWithEnumReq) returns (GetEmbeddedConsoleMessageWithEnumResp) {
+        option (blocker.ignoreExportConsole) = 0;
+    }
+}
+
+enum ConsoleGender {
+    UNKNOWN_CONSOLE_GENDER = 0;
+    CONSOLE_MALE = 1;
+    CONSOLE_FEMALE = 2;
+}
+
+enum ConsoleEducation {
+    UNKNOWN_CONSOLE_EDUCATION = 0;
+    CONSOLE_PRIMARY = 1;
+    CONSOLE_SECONDARY = 2;
+    CONSOLE_TERTIARY = 3;
+}
+
+enum ConsoleCareer {
+    UNKNOWN_CONSOLE_CAREER = 0;
+    CONSOLE_STUDENT = 1;
+    CONSOLE_EMPLOYED = 2;
+    CONSOLE_UNEMPLOYED = 3;
+}
+
+message ConsoleAddress {
+    string street = 1;
+    string city = 2;
+    string state = 3;
+    string zip = 4;
+}
+
+message ConsoleSocialInfo {
+    string tel = 1;
+    string email = 2;
+    string website = 3;
+}
+
+message ConsolePublicPerson {
+    string name = 1;
+    int32 age = 2;
+    ConsoleGender gender = 3;
+    ConsoleEducation education = 4;
+    ConsoleCareer career = 5;
+    ConsoleAddress address = 6;
+    ConsoleSocialInfo socialInfo = 7;
+}
+
+enum ConsoleAssetType {
+    UNKNOWN_CONSOLE_ASSET_TYPE = 0;
+    CONSOLE_STOCK = 1;
+    CONSOLE_BOND = 2;
+    CONSOLE_REAL_ESTATE = 3;
+    CONSOLE_CRYPTO = 4;
+    CONSOLE_OTHER = 5;
+}
+
+message ConsoleAssetInfo {
+    string assetId = 1;
+    string assetName = 2;
+    ConsoleAssetType assetType = 3;
+    float assetValue = 4;
+}
+
+message ConsolePrivatePerson {
+    string name = 1;
+    int32 age = 2;
+    repeated ConsoleAssetInfo assets = 3;
+}
+
+message ConsoleReq {
+    string name = 1;
+}
+
+message ConsoleResp {
+    string message = 1;
+}
+
+message IgnoredConsoleReq {
+    string name = 1;
+}
+
+message IgnoredConsoleResp {
+    string message = 1;
+}
+
+message GetAddressConsoleInfoReq {
+    string name = 1;
+}
+
+message GetAddressConsoleInfoResp {
+    ConsoleAddress address = 1;
+}
+
+message GetPersonConsoleInfoReq {
+    string personId = 1;
+}
+
+message GetPersonConsoleInfoResp {
+    ConsolePublicPerson person = 1;
+}
+
+message GetPrivatePersonConsoleInfoReq {
+    string personId = 1;
+}
+
+message GetPrivatePersonConsoleInfoResp {
+    ConsolePrivatePerson privatePerson = 1;
+}
+
+message GetEmbeddedConsoleMessageReq {
+    enum EmbeddedMessageType {
+        UNKNOWN_EMBEDDED_MESSAGE_TYPE = 0;
+        ADDRESS = 1;
+        PERSON = 2;
+        PRIVATE_PERSON = 3;
+    }
+    message SizeInfo {
+        int32 width = 1;
+        int32 height = 2;
+    }
+    string name = 1;
+    SizeInfo sizeInfo = 2;
+    EmbeddedMessageType embeddedMessageType = 3;
+}
+
+message GetEmbeddedConsoleMessageResp {
+    enum RespCode {
+        UNKNOWN_RESP_CODE = 0;
+        SUCCESS = 1;
+        ERROR = 2;
+    }
+    message ErrorInfo {
+        string errorMessage = 1;
+        uint32 errorCode = 2;
+    }
+    ConsoleAddress address = 1;
+    RespCode respCode = 2;
+    ErrorInfo errorInfo = 3;
+}
+
+message GetEmbeddedConsoleMessageWithEnumReq {
+    enum Day {
+        UNKNOWN_DAY = 0;
+        MONDAY = 1;
+        TUESDAY = 2;
+        WEDNESDAY = 3;
+        THURSDAY = 4;
+        FRIDAY = 5;
+        SATURDAY = 6;
+        SUNDAY = 7;
+    }
+    message WeatherInfo {
+        float temperature = 1;
+        double humidity = 2;
+        string windSpeed = 3;
+        int64 precipitation = 4;
+        int32 cloudCover = 5;
+    }
+    string name = 1;
+    Day day = 2;
+    WeatherInfo weatherInfo = 3;
+    ConsoleAddress address = 4;
+}
+
+message GetEmbeddedConsoleMessageWithEnumResp {
+    enum Code {
+        UNKNOWN_CODE = 0;
+        SUCCESS = 1;
+        ERROR = 2;
+    }
+    message Msg {
+        Code code = 1;
+        string message = 2;
+    }
+    ConsoleAddress address = 1;
+    Msg msg = 2;
+}

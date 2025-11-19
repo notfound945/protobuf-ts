@@ -93,7 +93,7 @@ export class ProtobuftsPlugin extends PluginBaseProtobufES {
             //   In other words, compute two reachability closures (kept vs excluded) and remove only (excluded - kept).
             const skipMessages = new Set<string>();
             const skipEnums = new Set<string>();
-            if ((options as any).exportClientEnabled || (options as any).exportConsoleEnabled) {
+            if ((options as any).exportClientEnabled || (options as any).ignoreExportConsoleEnabled) {
                 // Build adjacency for message -> referenced messages / enums
                 const messageToMessageRefs = new Map<string, Set<string>>();
                 const messageToEnumRefs = new Map<string, Set<string>>();

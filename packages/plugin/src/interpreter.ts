@@ -68,7 +68,7 @@ export class Interpreter {
             keepEnumPrefix: boolean,
             useProtoFieldName: boolean,
             exportClientEnabled: boolean,
-            exportConsoleEnabled: boolean,
+            ignoreExportConsoleEnabled: boolean,
         },
     ) {
     }
@@ -307,13 +307,18 @@ export class Interpreter {
                 return true;
             });
         }
-        if (this.options.exportConsoleEnabled) {
+        if (this.options.ignoreExportConsoleEnabled) {
             filteredMethods = filteredMethods.filter(method => {
                 const methodOptions = this.readOptions(method, excludeOptions);
                 if (methodOptions) {
-                    const exportConsoleValue = methodOptions['blocker.exportconsole'];
-                    // If the option is set to 0, filter out this method
-                    if (exportConsoleValue === 0 || exportConsoleValue === '0') {
+                    const ignoreExportConsoleValue = methodOptions['blocker.ignoreExportConsole'];
+                    // If the option is set to 1 (or true), filter out this method
+                    if (
+                        ignoreExportConsoleValue === 1 ||
+                        ignoreExportConsoleValue === '1' ||
+                        ignoreExportConsoleValue === true ||
+                        ignoreExportConsoleValue === 'true'
+                    ) {
                         return false;
                     }
                 }
