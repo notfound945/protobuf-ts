@@ -310,9 +310,14 @@ export class Interpreter {
         if (this.options.exportConsoleEnabled) {
             filteredMethods = filteredMethods.filter(method => {
                 const methodOptions = this.readOptions(method, excludeOptions);
-                // Keep only if explicitly set to 1
-                const v = methodOptions ? methodOptions['blocker.exportconsole'] : undefined;
-                return v === 1 || v === '1';
+                if (methodOptions) {
+                    const exportConsoleValue = methodOptions['blocker.exportconsole'];
+                    // If the option is set to 0, filter out this method
+                    if (exportConsoleValue === 0 || exportConsoleValue === '0') {
+                        return false;
+                    }
+                }
+                return true;
             });
         }
         

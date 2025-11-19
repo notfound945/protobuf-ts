@@ -15,10 +15,18 @@
 import type { RpcTransport } from "@console-pbts/runtime-rpc";
 import type { ServiceInfo } from "@console-pbts/runtime-rpc";
 import { TestService } from "./unittest_no_generic_services";
+import { stackIntercept } from "@console-pbts/runtime-rpc";
+import type { TestMessage } from "./unittest_no_generic_services";
+import type { UnaryCall } from "@console-pbts/runtime-rpc";
+import type { RpcOptions } from "@console-pbts/runtime-rpc";
 /**
  * @generated from protobuf service protobuf_unittest.no_generic_services_test.TestService
  */
 export interface ITestServiceClient {
+    /**
+     * @generated from protobuf rpc: Foo
+     */
+    foo(input: TestMessage, options?: RpcOptions): UnaryCall<TestMessage, TestMessage>;
 }
 /**
  * @generated from protobuf service protobuf_unittest.no_generic_services_test.TestService
@@ -28,5 +36,12 @@ export class TestServiceClient implements ITestServiceClient, ServiceInfo {
     methods = TestService.methods;
     options = TestService.options;
     constructor(private readonly _transport: RpcTransport) {
+    }
+    /**
+     * @generated from protobuf rpc: Foo
+     */
+    foo(input: TestMessage, options?: RpcOptions): UnaryCall<TestMessage, TestMessage> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<TestMessage, TestMessage>("unary", this._transport, method, opt, input);
     }
 }

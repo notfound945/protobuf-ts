@@ -4,10 +4,19 @@
 import type { RpcTransport } from "@console-pbts/runtime-rpc";
 import type { ServiceInfo } from "@console-pbts/runtime-rpc";
 import { AnnotatedService } from "./service-annotated";
+import { stackIntercept } from "@console-pbts/runtime-rpc";
+import type { AnnoGetResponse } from "./service-annotated";
+import type { AnnoGetRequest } from "./service-annotated";
+import type { UnaryCall } from "@console-pbts/runtime-rpc";
+import type { RpcOptions } from "@console-pbts/runtime-rpc";
 /**
  * @generated from protobuf service spec.AnnotatedService
  */
 export interface IAnnotatedServiceClient {
+    /**
+     * @generated from protobuf rpc: Get
+     */
+    get(input: AnnoGetRequest, options?: RpcOptions): UnaryCall<AnnoGetRequest, AnnoGetResponse>;
 }
 /**
  * @generated from protobuf service spec.AnnotatedService
@@ -17,5 +26,12 @@ export class AnnotatedServiceClient implements IAnnotatedServiceClient, ServiceI
     methods = AnnotatedService.methods;
     options = AnnotatedService.options;
     constructor(private readonly _transport: RpcTransport) {
+    }
+    /**
+     * @generated from protobuf rpc: Get
+     */
+    get(input: AnnoGetRequest, options?: RpcOptions): UnaryCall<AnnoGetRequest, AnnoGetResponse> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<AnnoGetRequest, AnnoGetResponse>("unary", this._transport, method, opt, input);
     }
 }

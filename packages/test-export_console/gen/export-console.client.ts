@@ -20,6 +20,12 @@ import type { RpcOptions } from "@console-pbts/runtime-rpc";
  */
 export interface IExportConsoleServiceClient {
     /**
+     * exportconsole is not set, so the client code will not be generated
+     *
+     * @generated from protobuf rpc: EmptyOptionConsoleMethod
+     */
+    emptyOptionConsoleMethod(input: ConsoleReq, options?: RpcOptions): UnaryCall<ConsoleReq, ConsoleResp>;
+    /**
      * @generated from protobuf rpc: MethodWithExportConsole1
      */
     methodWithExportConsole1(input: ConsoleReq, options?: RpcOptions): UnaryCall<ConsoleReq, ConsoleResp>;
@@ -46,31 +52,40 @@ export class ExportConsoleServiceClient implements IExportConsoleServiceClient, 
     constructor(private readonly _transport: RpcTransport) {
     }
     /**
+     * exportconsole is not set, so the client code will not be generated
+     *
+     * @generated from protobuf rpc: EmptyOptionConsoleMethod
+     */
+    emptyOptionConsoleMethod(input: ConsoleReq, options?: RpcOptions): UnaryCall<ConsoleReq, ConsoleResp> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<ConsoleReq, ConsoleResp>("unary", this._transport, method, opt, input);
+    }
+    /**
      * @generated from protobuf rpc: MethodWithExportConsole1
      */
     methodWithExportConsole1(input: ConsoleReq, options?: RpcOptions): UnaryCall<ConsoleReq, ConsoleResp> {
-        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        const method = this.methods[1], opt = this._transport.mergeOptions(options);
         return stackIntercept<ConsoleReq, ConsoleResp>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetAddressConsoleInfo
      */
     getAddressConsoleInfo(input: GetAddressConsoleInfoReq, options?: RpcOptions): UnaryCall<GetAddressConsoleInfoReq, GetAddressConsoleInfoResp> {
-        const method = this.methods[1], opt = this._transport.mergeOptions(options);
+        const method = this.methods[2], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetAddressConsoleInfoReq, GetAddressConsoleInfoResp>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetPersonConsoleInfo
      */
     getPersonConsoleInfo(input: GetPersonConsoleInfoReq, options?: RpcOptions): UnaryCall<GetPersonConsoleInfoReq, GetPersonConsoleInfoResp> {
-        const method = this.methods[2], opt = this._transport.mergeOptions(options);
+        const method = this.methods[3], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetPersonConsoleInfoReq, GetPersonConsoleInfoResp>("unary", this._transport, method, opt, input);
     }
     /**
      * @generated from protobuf rpc: GetEmbeddedConsoleMessage
      */
     getEmbeddedConsoleMessage(input: GetEmbeddedConsoleMessageReq, options?: RpcOptions): UnaryCall<GetEmbeddedConsoleMessageReq, GetEmbeddedConsoleMessageResp> {
-        const method = this.methods[3], opt = this._transport.mergeOptions(options);
+        const method = this.methods[4], opt = this._transport.mergeOptions(options);
         return stackIntercept<GetEmbeddedConsoleMessageReq, GetEmbeddedConsoleMessageResp>("unary", this._transport, method, opt, input);
     }
 }

@@ -1037,6 +1037,7 @@ export const GetEmbeddedConsoleMessageResp_ErrorInfo = new GetEmbeddedConsoleMes
  * @generated ServiceType for protobuf service ExportConsoleService
  */
 export const ExportConsoleService = new ServiceType("ExportConsoleService", [
+    { name: "EmptyOptionConsoleMethod", options: {}, I: ConsoleReq, O: ConsoleResp },
     { name: "MethodWithExportConsole1", options: { "blocker.exportconsole": 1 }, I: ConsoleReq, O: ConsoleResp },
     { name: "GetAddressConsoleInfo", options: { "blocker.exportconsole": 1 }, I: GetAddressConsoleInfoReq, O: GetAddressConsoleInfoResp },
     { name: "GetPersonConsoleInfo", options: { "blocker.exportconsole": 1 }, I: GetPersonConsoleInfoReq, O: GetPersonConsoleInfoResp },

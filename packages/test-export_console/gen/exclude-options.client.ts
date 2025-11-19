@@ -4,10 +4,18 @@
 import type { RpcTransport } from "@console-pbts/runtime-rpc";
 import type { ServiceInfo } from "@console-pbts/runtime-rpc";
 import { ServiceWithExcludedOptions } from "./exclude-options";
+import { stackIntercept } from "@console-pbts/runtime-rpc";
+import type { Empty } from "./google/protobuf/empty";
+import type { UnaryCall } from "@console-pbts/runtime-rpc";
+import type { RpcOptions } from "@console-pbts/runtime-rpc";
 /**
  * @generated from protobuf service spec.ServiceWithExcludedOptions
  */
 export interface IServiceWithExcludedOptionsClient {
+    /**
+     * @generated from protobuf rpc: Test
+     */
+    test(input: Empty, options?: RpcOptions): UnaryCall<Empty, Empty>;
 }
 /**
  * @generated from protobuf service spec.ServiceWithExcludedOptions
@@ -17,5 +25,12 @@ export class ServiceWithExcludedOptionsClient implements IServiceWithExcludedOpt
     methods = ServiceWithExcludedOptions.methods;
     options = ServiceWithExcludedOptions.options;
     constructor(private readonly _transport: RpcTransport) {
+    }
+    /**
+     * @generated from protobuf rpc: Test
+     */
+    test(input: Empty, options?: RpcOptions): UnaryCall<Empty, Empty> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Empty, Empty>("unary", this._transport, method, opt, input);
     }
 }

@@ -8,12 +8,23 @@
 import type { RpcTransport } from "@console-pbts/runtime-rpc";
 import type { ServiceInfo } from "@console-pbts/runtime-rpc";
 import { Haberdasher } from "./service-twirp-example";
+import { stackIntercept } from "@console-pbts/runtime-rpc";
+import type { Hat } from "./service-twirp-example";
+import type { Size } from "./service-twirp-example";
+import type { UnaryCall } from "@console-pbts/runtime-rpc";
+import type { RpcOptions } from "@console-pbts/runtime-rpc";
 /**
  * A Haberdasher makes hats for clients.
  *
  * @generated from protobuf service spec.haberdasher.Haberdasher
  */
 export interface IHaberdasherClient {
+    /**
+     * MakeHat produces a hat of mysterious, randomly-selected color!
+     *
+     * @generated from protobuf rpc: MakeHat
+     */
+    makeHat(input: Size, options?: RpcOptions): UnaryCall<Size, Hat>;
 }
 /**
  * A Haberdasher makes hats for clients.
@@ -25,5 +36,14 @@ export class HaberdasherClient implements IHaberdasherClient, ServiceInfo {
     methods = Haberdasher.methods;
     options = Haberdasher.options;
     constructor(private readonly _transport: RpcTransport) {
+    }
+    /**
+     * MakeHat produces a hat of mysterious, randomly-selected color!
+     *
+     * @generated from protobuf rpc: MakeHat
+     */
+    makeHat(input: Size, options?: RpcOptions): UnaryCall<Size, Hat> {
+        const method = this.methods[0], opt = this._transport.mergeOptions(options);
+        return stackIntercept<Size, Hat>("unary", this._transport, method, opt, input);
     }
 }

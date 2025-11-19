@@ -2,7 +2,7 @@
 
 ## Run the test cases for export_client option
 ```bash
-npx turbo run test --filter=@protobuf-ts/test-export_client --force
+npx turbo run test --filter=@console-pbts/test-export_client --force
 ```
 
 - test the function of exportclient with `npx protoc --ts_out=export_client:. --plugin=protoc-gen-ts=./packages/plugin/bin/protoc-gen-ts \
@@ -11,12 +11,12 @@ npx turbo run test --filter=@protobuf-ts/test-export_client --force
 test the export_client option:
 
 ```
-npx turbo run test --filter=@protobuf-ts/test-export_client
+npx turbo run test --filter=@console-pbts/test-export_client
 ```
 
 
 test the export_console option:
 
 ```
-npx turbo run test --filter=@protobuf-ts/test-export_console
+npx turbo run test --filter=@console-pbts/test-export_console
 ```

@@ -13,6 +13,26 @@
 // Author: kenton@google.com (Kenton Varda)
 //
 import { ServiceType } from "@console-pbts/runtime-rpc";
+import type { BinaryWriteOptions } from "@console-pbts/runtime";
+import type { IBinaryWriter } from "@console-pbts/runtime";
+import { WireType } from "@console-pbts/runtime";
+import type { BinaryReadOptions } from "@console-pbts/runtime";
+import type { IBinaryReader } from "@console-pbts/runtime";
+import { UnknownFieldHandler } from "@console-pbts/runtime";
+import type { PartialMessage } from "@console-pbts/runtime";
+import { reflectionMergePartial } from "@console-pbts/runtime";
+import { MessageType } from "@console-pbts/runtime";
+// *_generic_services are false by default.
+
+/**
+ * @generated from protobuf message protobuf_unittest.no_generic_services_test.TestMessage
+ */
+export interface TestMessage {
+    /**
+     * @generated from protobuf field: optional int32 a = 1
+     */
+    a?: number;
+}
 /**
  * @generated from protobuf enum protobuf_unittest.no_generic_services_test.TestEnum
  */
@@ -26,7 +46,55 @@ export enum TestEnum {
      */
     FOO = 1
 }
+// @generated message type with reflection information, may provide speed optimized methods
+class TestMessage$Type extends MessageType<TestMessage> {
+    constructor() {
+        super("protobuf_unittest.no_generic_services_test.TestMessage", [
+            { no: 1, name: "a", kind: "scalar", opt: true, T: 5 /*ScalarType.INT32*/ }
+        ]);
+    }
+    create(value?: PartialMessage<TestMessage>): TestMessage {
+        const message = globalThis.Object.create((this.messagePrototype!));
+        if (value !== undefined)
+            reflectionMergePartial<TestMessage>(this, message, value);
+        return message;
+    }
+    internalBinaryRead(reader: IBinaryReader, length: number, options: BinaryReadOptions, target?: TestMessage): TestMessage {
+        let message = target ?? this.create(), end = reader.pos + length;
+        while (reader.pos < end) {
+            let [fieldNo, wireType] = reader.tag();
+            switch (fieldNo) {
+                case /* optional int32 a */ 1:
+                    message.a = reader.int32();
+                    break;
+                default:
+                    let u = options.readUnknownField;
+                    if (u === "throw")
+                        throw new globalThis.Error(`Unknown field ${fieldNo} (wire type ${wireType}) for ${this.typeName}`);
+                    let d = reader.skip(wireType);
+                    if (u !== false)
+                        (u === true ? UnknownFieldHandler.onRead : u)(this.typeName, message, fieldNo, wireType, d);
+            }
+        }
+        return message;
+    }
+    internalBinaryWrite(message: TestMessage, writer: IBinaryWriter, options: BinaryWriteOptions): IBinaryWriter {
+        /* optional int32 a = 1; */
+        if (message.a !== undefined)
+            writer.tag(1, WireType.Varint).int32(message.a);
+        let u = options.writeUnknownFields;
+        if (u !== false)
+            (u == true ? UnknownFieldHandler.onWrite : u)(this.typeName, message, writer);
+        return writer;
+    }
+}
+/**
+ * @generated MessageType for protobuf message protobuf_unittest.no_generic_services_test.TestMessage
+ */
+export const TestMessage = new TestMessage$Type();
 /**
  * @generated ServiceType for protobuf service protobuf_unittest.no_generic_services_test.TestService
  */
-export const TestService = new ServiceType("protobuf_unittest.no_generic_services_test.TestService", []);
+export const TestService = new ServiceType("protobuf_unittest.no_generic_services_test.TestService", [
+    { name: "Foo", options: {}, I: TestMessage, O: TestMessage }
+]);
